@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package inventory;
+service InventoryService {
+
+    // Create a new product.
+    rpc CreateProduct(CreateProductRequest) returns (Product);
+
+    // Create new product sku
+    rpc CreateProductStock(CreateProductStockRequest) returns (ProductStock);
+
+    // Return a list sku's for a given product ID.
+    rpc ListProductStocks(ProductIdRequest) returns (stream ProductStock);
+
+    // Adds stock count for a given SKU.
+    rpc AddStockCount(AddStockGivenSkuRequest) returns (StockCountTransaction);
+
+    // Returns the inventory for a given SKU.
+    rpc GetInventoryBySku(GetInventoryBySkuRequest) returns (Inventory);
+
+    // Returns a list of inventory for a given product ID.
+    rpc GetInventoryByProductId(GetInventoryByProductIdRequest) returns (ListInventoryResponse);
+
+    // Returns a stream of all inventory.
+    rpc ListInventory(ListInventoryRequest) returns (stream Inventory);
+}
+
+message CreateProductRequest {
+    string id = 1;
+}
+
+message Product {
+    string id = 1;
+}
+
+message CreateProductStockRequest {
+    string product_id = 1;
+    string sku = 2;
+}
+
+message ProductIdRequest {
+    string product_id = 1;
+}
+
+message ProductStock {
+    string product_id = 1;
+    string sku = 2;
+    int32 created = 3;
+    int32 modified = 4;
+    
+}
+
+message AddStockGivenSkuRequest {
+    string sku = 1;
+    int32 quantity = 2;
+}
+
+message StockCountTransaction {
+    string sku = 1;
+    int32 quantity = 2;
+    string type = 3;
+}
+
+message Inventory {
+    string sku = 1;
+    int32 quantity = 2;
+}
+
+message GetInventoryBySkuRequest {
+    string sku = 1;
+}
+
+message GetInventoryByProductIdRequest {
+  string product_id = 1;
+}
+
+message ListInventoryResponse {
+  repeated Inventory inventory_by_sku = 1;
+  int32 total_quantity = 2;
+}
+
+message ListInventoryRequest {}

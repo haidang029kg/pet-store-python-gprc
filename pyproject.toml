@@ -1,0 +1,7 @@
+[tool.black]
+line-length = 79
+target-version = ['py37', 'py38', 'py39']
+[tool.aerich]
+tortoise_orm = "app.settings.TORTOISE_ORM"
+location = "app/models/migrations"
+src_folder = "./."
