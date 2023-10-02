@@ -14,4 +14,4 @@ grpc-inventory:
 	python -m grpc_tools.protoc -I./protos --mypy_out=$(PROTO_OUT_DIR) --python_out=$(PROTO_OUT_DIR) --grpc_python_out=$(PROTO_OUT_DIR) $(PROTO_FILES)
 
 aerich-init:
-	aerich init -t app.settings.TORTOISE_ORM --location app/models/migrations
+	aerich init -t settings.TORTOISE_ORM --location models/migrations

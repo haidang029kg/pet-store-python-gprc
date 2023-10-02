@@ -53,7 +53,7 @@ class StockTransactionModel(DbModel):
         table = "stock_transaction"
         indexes = [
             models.Index(
-                fields=["stock", "transaction_type"],
+                fields=["stock_id", "transaction_type"],
                 name="sku_transaction_type_index",
             ),
         ]
