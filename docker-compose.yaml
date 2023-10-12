@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # gRPC Inventory
+  inventory:
+    container_name: inv_container
+    build: .
+    command: >
+        sh -c "python server.py
+        "
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "50051:50051"
+    env_file:
+      - ./.env
+
+networks:
+    default:
+        external:
+            name: pet-network
