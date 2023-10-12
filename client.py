@@ -5,43 +5,50 @@ from dotenv import load_dotenv
 
 from services.logger import logger
 from generated import inventory_pb2, inventory_pb2_grpc
+import settings
 
 #
 load_dotenv()
 
 
 def client():
-    with grpc.insecure_channel(
-        os.environ.get("INVENTORY_SERVER_CHANNEL")
-    ) as channel:
-        logger.info("Connecting to inventory server...")
-        logger.info(channel)
-        inventory_stub = inventory_pb2_grpc.InventoryServiceStub(channel)
+    if settings.ENABLED_TLS is True:
+        channel_credential = grpc.ssl_channel_credentials(
+            settings.ROOT_CERTIFICATE
+        )
+        channel = grpc.secure_channel(os.environ.get("INVENTORY_SERVER_CHANNEL"), channel_credential)
+    else:
+        channel = grpc.insecure_channel(os.environ.get("INVENTORY_SERVER_CHANNEL"))
 
-        choice = 1
-        while choice > 0:
-            instruction()
-            try:
-                choice = int(input("Enter choice: "))
-                if choice == 1:
-                    create_product(inventory_stub)
-                elif choice == 2:
-                    create_product_stock(inventory_stub)
-                elif choice == 3:
-                    add_stock_count(inventory_stub)
-                elif choice == 4:
-                    get_inventory_by_sku(inventory_stub)
-                elif choice == 5:
-                    get_list_product_stocks(inventory_stub)
-                elif choice == 6:
-                    get_inventory_by_product_id(inventory_stub)
-                elif choice == 10:
-                    break
-                else:
-                    print("Invalid choice")
-            except Exception as e:
-                print(e)
-                choice = 0
+    logger.info("Connecting to inventory server...%s enable TLS = %s", os.environ.get("INVENTORY_SERVER_CHANNEL"),
+                settings.ENABLED_TLS)
+    logger.info(channel)
+    inventory_stub = inventory_pb2_grpc.InventoryServiceStub(channel)
+
+    choice = 1
+    while choice > 0:
+        instruction()
+        try:
+            choice = int(input("Enter choice: "))
+            if choice == 1:
+                create_product(inventory_stub)
+            elif choice == 2:
+                create_product_stock(inventory_stub)
+            elif choice == 3:
+                add_stock_count(inventory_stub)
+            elif choice == 4:
+                get_inventory_by_sku(inventory_stub)
+            elif choice == 5:
+                get_list_product_stocks(inventory_stub)
+            elif choice == 6:
+                get_inventory_by_product_id(inventory_stub)
+            elif choice == 10:
+                break
+            else:
+                print("Invalid choice")
+        except Exception as e:
+            print(e)
+            choice = 0
 
 
 def create_product(stub: inventory_pb2_grpc.InventoryServiceStub):
@@ -77,6 +84,7 @@ def add_stock_count(stub: inventory_pb2_grpc.InventoryServiceStub):
 def get_inventory_by_sku(stub: inventory_pb2_grpc.InventoryServiceStub):
     logger.info("Calling GetInventoryBySku...")
     sku = input("Enter sku: ")
+    # sku = "vnhd"
     logger.info("Request: %s", sku)
     response = stub.GetInventoryBySku(
         inventory_pb2.GetInventoryBySkuRequest(sku=sku)
