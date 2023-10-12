@@ -8,6 +8,8 @@ from generated import inventory_pb2_grpc
 from rpc_servicers import InventoryServicer
 from services import logger
 
+_LISTEN_ADDRESS_TEMPLATE = 'localhost:%s'
+
 
 async def connect_db():
     logger.info("Connecting database ...")
@@ -15,7 +17,7 @@ async def connect_db():
     Tortoise.get_connection("default")
     logger.info("Connected database")
 
-    await Tortoise.generate_schemas()
+    # await Tortoise.generate_schemas()
 
 
 async def serve():
@@ -26,11 +28,24 @@ async def serve():
     inventory_pb2_grpc.add_InventoryServiceServicer_to_server(
         InventoryServicer(), server
     )
-    port = settings.GRPC_PORT
-    insecure_port = f"[::]:{port}"
-    server.add_insecure_port(insecure_port)
-    logger.info("Listening on insecure port %s", insecure_port)
+
+    if settings.ENABLED_TLS is True:
+        # Loading credentials
+        logger.info("Loading credentials ...")
+        server_credentials = grpc.ssl_server_credentials(
+            (
+                (
+                    settings.SERVER_CERTIFICATE_KEY,
+                    settings.SERVER_CERTIFICATE,
+                ),
+            )
+        )
+        server.add_secure_port(_LISTEN_ADDRESS_TEMPLATE % settings.GRPC_PORT, server_credentials)
+    else:
+        logger.info("loading insecure credentials ...")
+        server.add_insecure_port(_LISTEN_ADDRESS_TEMPLATE % settings.GRPC_PORT)
     await server.start()
+    logger.info("Listening on port %s -TLS=%s", settings.GRPC_PORT, settings.ENABLED_TLS)
     await server.wait_for_termination()
 
 
