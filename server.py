@@ -8,7 +8,7 @@ from generated import inventory_pb2_grpc
 from rpc_servicers import InventoryServicer
 from services import logger
 
-_LISTEN_ADDRESS_TEMPLATE = 'localhost:%s'
+_LISTEN_ADDRESS_TEMPLATE = f'{settings.LISTEN_ADDRESS}:%s'
 
 
 async def connect_db():

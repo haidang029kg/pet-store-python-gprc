@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 #
 ENABLED_TLS = os.environ.get("ENABLED_TLS", "False") in ["True", "true", "1"]
+LISTEN_ADDRESS = os.environ.get("LISTEN_ADDRESS", "0.0.0.0")
 GRPC_PORT = os.environ.get("GRPC_PORT", "50051")
 #
 DATABASE_URI = os.environ.get("DATABASE_URI")
