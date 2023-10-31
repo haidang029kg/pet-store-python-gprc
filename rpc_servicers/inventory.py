@@ -15,14 +15,14 @@ from generated import inventory_pb2, inventory_pb2_grpc
 
 class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
     async def CreateProduct(
-        self, request: inventory_pb2.CreateProductRequest, context
+            self, request: inventory_pb2.CreateProductRequest, context
     ):
         logger.info("CreateProduct: %s", request)
         new_product = await ProductModel.create(id=request.id)
         return inventory_pb2.Product(id=str(new_product.id))
 
     async def CreateProductStock(
-        self, request: inventory_pb2.CreateProductStockRequest, context
+            self, request: inventory_pb2.CreateProductStockRequest, context
     ):
         logger.info("CreateProductStock: %s", request)
         # validate product id
@@ -36,9 +36,9 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
         )
 
     async def ListProductStocks(
-        self,
-        request: inventory_pb2.ProductIdRequest,
-        context,
+            self,
+            request: inventory_pb2.ProductIdRequest,
+            context,
     ):
         logger.info("ListProductStocks: %s", request)
         # validate product id
@@ -57,7 +57,7 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
             yield reply
 
     async def AddStockCount(
-        self, request: inventory_pb2.AddStockGivenSkuRequest, context
+            self, request: inventory_pb2.AddStockGivenSkuRequest, context
     ):
         logger.info("AddStockCount: %s", request)
         # validate sku
@@ -81,7 +81,7 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
         )
 
     async def GetInventoryBySku(
-        self, request: inventory_pb2.GetInventoryBySkuRequest, context
+            self, request: inventory_pb2.GetInventoryBySkuRequest, context
     ):
         logger.info("GetInventoryBySku: %s", request)
         # validate sku
@@ -100,7 +100,7 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
         )
 
     async def GetInventoryByProductId(
-        self, request: inventory_pb2.GetInventoryByProductIdRequest, context
+            self, request: inventory_pb2.GetInventoryByProductIdRequest, context
     ):
         logger.info("GetInventoryByProductId: %s", request)
         # validate product id
