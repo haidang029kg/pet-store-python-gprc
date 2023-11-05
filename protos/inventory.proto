@@ -1,73 +1,96 @@
 syntax = "proto3";
-
+import "google/protobuf/timestamp.proto"; // Import the timestamp type
 package inventory;
 service InventoryService {
 
-    // Create a new product.
-    rpc CreateProduct(CreateProductRequest) returns (Product);
+  // Create a purchase
+  rpc CreatePurchase(CreatePurchaseReq) returns (PurchaseRes);
 
-    // Create new product sku
-    rpc CreateProductStock(CreateProductStockRequest) returns (ProductStock);
+  // Create a new product.
+  rpc CreateProduct(CreateProductRequest) returns (Product);
 
-    // Return a list sku's for a given product ID.
-    rpc ListProductStocks(ProductIdRequest) returns (stream ProductStock);
+  // Create new product sku
+  rpc CreateProductStock(CreateProductStockRequest) returns (ProductStock);
 
-    // Adds stock count for a given SKU.
-    rpc AddStockCount(AddStockGivenSkuRequest) returns (StockCountTransaction);
+  // Return a list sku's for a given product ID.
+  rpc ListProductStocks(ProductIdRequest) returns (stream ProductStock);
 
-    // Returns the inventory for a given SKU.
-    rpc GetInventoryBySku(GetInventoryBySkuRequest) returns (Inventory);
+  // Adds stock count for a given SKU.
+  rpc AddStockCount(AddStockGivenSkuRequest) returns (StockCountTransaction);
 
-    // Returns a list of inventory for a given product ID.
-    rpc GetInventoryByProductId(GetInventoryByProductIdRequest) returns (ListInventoryResponse);
+  // Returns the inventory for a given SKU.
+  rpc GetInventoryBySku(GetInventoryBySkuRequest) returns (Inventory);
 
-    // Returns a stream of all inventory.
-    rpc ListInventory(ListInventoryRequest) returns (stream Inventory);
+  // Returns a list of inventory for a given product ID.
+  rpc GetInventoryByProductId(GetInventoryByProductIdRequest) returns (ListInventoryResponse);
+
+  // Returns a stream of all inventory.
+  rpc ListInventory(ListInventoryRequest) returns (stream Inventory);
+}
+
+message PurchaseItem {
+  string product_id = 1;
+  string sku = 2;
+  int32 quantity = 3;
+  int32 price = 4;
+  string unique_identifier = 5; // Use string for Union[str, None]
+}
+
+message PurchaseRes {
+  google.protobuf.Timestamp created_at = 1;
+  int32 total_units = 2;
+  int64 total_price = 3;
+  repeated PurchaseItem items = 4;
+}
+
+message CreatePurchaseReq {
+  string note = 1;
+  repeated PurchaseItem items = 2;
 }
 
 message CreateProductRequest {
-    string id = 1;
+  string id = 1;
 }
 
 message Product {
-    string id = 1;
+  string id = 1;
 }
 
 message CreateProductStockRequest {
-    string product_id = 1;
-    string sku = 2;
+  string product_id = 1;
+  string sku = 2;
 }
 
 message ProductIdRequest {
-    string product_id = 1;
+  string product_id = 1;
 }
 
 message ProductStock {
-    string product_id = 1;
-    string sku = 2;
-    int32 created = 3;
-    int32 modified = 4;
-    
+  string product_id = 1;
+  string sku = 2;
+  int32 created = 3;
+  int32 modified = 4;
+
 }
 
 message AddStockGivenSkuRequest {
-    string sku = 1;
-    int32 quantity = 2;
+  string sku = 1;
+  int32 quantity = 2;
 }
 
 message StockCountTransaction {
-    string sku = 1;
-    int32 quantity = 2;
-    string type = 3;
+  string sku = 1;
+  int32 quantity = 2;
+  string type = 3;
 }
 
 message Inventory {
-    string sku = 1;
-    int32 quantity = 2;
+  string sku = 1;
+  int32 quantity = 2;
 }
 
 message GetInventoryBySkuRequest {
-    string sku = 1;
+  string sku = 1;
 }
 
 message GetInventoryByProductIdRequest {
