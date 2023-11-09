@@ -17,8 +17,6 @@ async def connect_db():
     Tortoise.get_connection("default")
     logger.info("Connected database")
 
-    # await Tortoise.generate_schemas()
-
 
 async def serve():
     await connect_db()

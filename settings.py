@@ -10,8 +10,9 @@ LISTEN_ADDRESS = os.environ.get("LISTEN_ADDRESS", "0.0.0.0")
 GRPC_PORT = os.environ.get("GRPC_PORT", "50051")
 #
 DATABASE_URI = os.environ.get("DATABASE_URI")
+TORTOISE_DEFAULT_CONN_NAME = os.environ.get("TORTOISE_DEFAULT_CONN_NAME", "default")
 TORTOISE_ORM = {
-    "connections": {"default": DATABASE_URI},
+    "connections": {TORTOISE_DEFAULT_CONN_NAME: DATABASE_URI},
     "apps": {
         "inventory": {
             "models": [
@@ -23,6 +24,7 @@ TORTOISE_ORM = {
         },
     },
 }
+CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE", "5000"))
 
 
 def _load_credential_from_file(filepath):

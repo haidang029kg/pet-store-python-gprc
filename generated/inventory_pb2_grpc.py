@@ -14,90 +14,42 @@ class InventoryServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateProduct = channel.unary_unary(
-                '/inventory.InventoryService/CreateProduct',
-                request_serializer=inventory__pb2.CreateProductRequest.SerializeToString,
-                response_deserializer=inventory__pb2.Product.FromString,
+        self.CreatePurchase = channel.unary_unary(
+                '/inventory.InventoryService/CreatePurchase',
+                request_serializer=inventory__pb2.CreatePurchaseReq.SerializeToString,
+                response_deserializer=inventory__pb2.PurchaseRes.FromString,
                 )
-        self.CreateProductStock = channel.unary_unary(
-                '/inventory.InventoryService/CreateProductStock',
-                request_serializer=inventory__pb2.CreateProductStockRequest.SerializeToString,
-                response_deserializer=inventory__pb2.ProductStock.FromString,
+        self.GetQuantity = channel.unary_unary(
+                '/inventory.InventoryService/GetQuantity',
+                request_serializer=inventory__pb2.GetQuantityReq.SerializeToString,
+                response_deserializer=inventory__pb2.GetQuantityRes.FromString,
                 )
-        self.ListProductStocks = channel.unary_stream(
-                '/inventory.InventoryService/ListProductStocks',
-                request_serializer=inventory__pb2.ProductIdRequest.SerializeToString,
-                response_deserializer=inventory__pb2.ProductStock.FromString,
-                )
-        self.AddStockCount = channel.unary_unary(
-                '/inventory.InventoryService/AddStockCount',
-                request_serializer=inventory__pb2.AddStockGivenSkuRequest.SerializeToString,
-                response_deserializer=inventory__pb2.StockCountTransaction.FromString,
-                )
-        self.GetInventoryBySku = channel.unary_unary(
-                '/inventory.InventoryService/GetInventoryBySku',
-                request_serializer=inventory__pb2.GetInventoryBySkuRequest.SerializeToString,
-                response_deserializer=inventory__pb2.Inventory.FromString,
-                )
-        self.GetInventoryByProductId = channel.unary_unary(
-                '/inventory.InventoryService/GetInventoryByProductId',
-                request_serializer=inventory__pb2.GetInventoryByProductIdRequest.SerializeToString,
-                response_deserializer=inventory__pb2.ListInventoryResponse.FromString,
-                )
-        self.ListInventory = channel.unary_stream(
-                '/inventory.InventoryService/ListInventory',
-                request_serializer=inventory__pb2.ListInventoryRequest.SerializeToString,
-                response_deserializer=inventory__pb2.Inventory.FromString,
+        self.CreateSaleOrder = channel.unary_unary(
+                '/inventory.InventoryService/CreateSaleOrder',
+                request_serializer=inventory__pb2.CreateSaleOrderReq.SerializeToString,
+                response_deserializer=inventory__pb2.SaleOrderRes.FromString,
                 )
 
 
 class InventoryServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def CreateProduct(self, request, context):
-        """Create a new product.
+    def CreatePurchase(self, request, context):
+        """Create a purchase
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CreateProductStock(self, request, context):
-        """Create new product sku
+    def GetQuantity(self, request, context):
+        """Get quantity by product ID or SKUs
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListProductStocks(self, request, context):
-        """Return a list sku's for a given product ID.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def AddStockCount(self, request, context):
-        """Adds stock count for a given SKU.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetInventoryBySku(self, request, context):
-        """Returns the inventory for a given SKU.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetInventoryByProductId(self, request, context):
-        """Returns a list of inventory for a given product ID.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def ListInventory(self, request, context):
-        """Returns a stream of all inventory.
+    def CreateSaleOrder(self, request, context):
+        """Create a sale
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -106,40 +58,20 @@ class InventoryServiceServicer(object):
 
 def add_InventoryServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateProduct': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateProduct,
-                    request_deserializer=inventory__pb2.CreateProductRequest.FromString,
-                    response_serializer=inventory__pb2.Product.SerializeToString,
+            'CreatePurchase': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreatePurchase,
+                    request_deserializer=inventory__pb2.CreatePurchaseReq.FromString,
+                    response_serializer=inventory__pb2.PurchaseRes.SerializeToString,
             ),
-            'CreateProductStock': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateProductStock,
-                    request_deserializer=inventory__pb2.CreateProductStockRequest.FromString,
-                    response_serializer=inventory__pb2.ProductStock.SerializeToString,
+            'GetQuantity': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetQuantity,
+                    request_deserializer=inventory__pb2.GetQuantityReq.FromString,
+                    response_serializer=inventory__pb2.GetQuantityRes.SerializeToString,
             ),
-            'ListProductStocks': grpc.unary_stream_rpc_method_handler(
-                    servicer.ListProductStocks,
-                    request_deserializer=inventory__pb2.ProductIdRequest.FromString,
-                    response_serializer=inventory__pb2.ProductStock.SerializeToString,
-            ),
-            'AddStockCount': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddStockCount,
-                    request_deserializer=inventory__pb2.AddStockGivenSkuRequest.FromString,
-                    response_serializer=inventory__pb2.StockCountTransaction.SerializeToString,
-            ),
-            'GetInventoryBySku': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetInventoryBySku,
-                    request_deserializer=inventory__pb2.GetInventoryBySkuRequest.FromString,
-                    response_serializer=inventory__pb2.Inventory.SerializeToString,
-            ),
-            'GetInventoryByProductId': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetInventoryByProductId,
-                    request_deserializer=inventory__pb2.GetInventoryByProductIdRequest.FromString,
-                    response_serializer=inventory__pb2.ListInventoryResponse.SerializeToString,
-            ),
-            'ListInventory': grpc.unary_stream_rpc_method_handler(
-                    servicer.ListInventory,
-                    request_deserializer=inventory__pb2.ListInventoryRequest.FromString,
-                    response_serializer=inventory__pb2.Inventory.SerializeToString,
+            'CreateSaleOrder': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSaleOrder,
+                    request_deserializer=inventory__pb2.CreateSaleOrderReq.FromString,
+                    response_serializer=inventory__pb2.SaleOrderRes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -152,7 +84,7 @@ class InventoryService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CreateProduct(request,
+    def CreatePurchase(request,
             target,
             options=(),
             channel_credentials=None,
@@ -162,14 +94,14 @@ class InventoryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/CreateProduct',
-            inventory__pb2.CreateProductRequest.SerializeToString,
-            inventory__pb2.Product.FromString,
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/CreatePurchase',
+            inventory__pb2.CreatePurchaseReq.SerializeToString,
+            inventory__pb2.PurchaseRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def CreateProductStock(request,
+    def GetQuantity(request,
             target,
             options=(),
             channel_credentials=None,
@@ -179,14 +111,14 @@ class InventoryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/CreateProductStock',
-            inventory__pb2.CreateProductStockRequest.SerializeToString,
-            inventory__pb2.ProductStock.FromString,
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/GetQuantity',
+            inventory__pb2.GetQuantityReq.SerializeToString,
+            inventory__pb2.GetQuantityRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ListProductStocks(request,
+    def CreateSaleOrder(request,
             target,
             options=(),
             channel_credentials=None,
@@ -196,76 +128,8 @@ class InventoryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/inventory.InventoryService/ListProductStocks',
-            inventory__pb2.ProductIdRequest.SerializeToString,
-            inventory__pb2.ProductStock.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def AddStockCount(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/AddStockCount',
-            inventory__pb2.AddStockGivenSkuRequest.SerializeToString,
-            inventory__pb2.StockCountTransaction.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetInventoryBySku(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/GetInventoryBySku',
-            inventory__pb2.GetInventoryBySkuRequest.SerializeToString,
-            inventory__pb2.Inventory.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetInventoryByProductId(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/GetInventoryByProductId',
-            inventory__pb2.GetInventoryByProductIdRequest.SerializeToString,
-            inventory__pb2.ListInventoryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def ListInventory(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/inventory.InventoryService/ListInventory',
-            inventory__pb2.ListInventoryRequest.SerializeToString,
-            inventory__pb2.Inventory.FromString,
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/CreateSaleOrder',
+            inventory__pb2.CreateSaleOrderReq.SerializeToString,
+            inventory__pb2.SaleOrderRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
