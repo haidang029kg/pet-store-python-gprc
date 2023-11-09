@@ -29,6 +29,11 @@ class InventoryServiceStub(object):
                 request_serializer=inventory__pb2.CreateSaleOrderReq.SerializeToString,
                 response_deserializer=inventory__pb2.SaleOrderRes.FromString,
                 )
+        self.GetSaleOrders = channel.unary_unary(
+                '/inventory.InventoryService/GetSaleOrders',
+                request_serializer=inventory__pb2.GetSaleOrdersReq.SerializeToString,
+                response_deserializer=inventory__pb2.GetSaleOrdersRes.FromString,
+                )
 
 
 class InventoryServiceServicer(object):
@@ -55,6 +60,13 @@ class InventoryServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetSaleOrders(self, request, context):
+        """Get sale orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InventoryServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -72,6 +84,11 @@ def add_InventoryServiceServicer_to_server(servicer, server):
                     servicer.CreateSaleOrder,
                     request_deserializer=inventory__pb2.CreateSaleOrderReq.FromString,
                     response_serializer=inventory__pb2.SaleOrderRes.SerializeToString,
+            ),
+            'GetSaleOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSaleOrders,
+                    request_deserializer=inventory__pb2.GetSaleOrdersReq.FromString,
+                    response_serializer=inventory__pb2.GetSaleOrdersRes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -131,5 +148,22 @@ class InventoryService(object):
         return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/CreateSaleOrder',
             inventory__pb2.CreateSaleOrderReq.SerializeToString,
             inventory__pb2.SaleOrderRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSaleOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/GetSaleOrders',
+            inventory__pb2.GetSaleOrdersReq.SerializeToString,
+            inventory__pb2.GetSaleOrdersRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

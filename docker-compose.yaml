@@ -6,7 +6,7 @@ services:
     container_name: inv_container
     build: .
     command: >
-        sh -c "python server.py
+        sh -c "python server_grpc.py
         "
     restart: always
     volumes:

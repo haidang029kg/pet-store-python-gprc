@@ -11,6 +11,9 @@ service InventoryService {
 
   // Create a sale
   rpc CreateSaleOrder(CreateSaleOrderReq) returns (SaleOrderRes);
+
+  // Get sale orders
+  rpc GetSaleOrders(GetSaleOrdersReq) returns (GetSaleOrdersRes);
 }
 
 message PurchaseItem {
@@ -62,11 +65,31 @@ message CreateSaleOrderReq {
   repeated SaleOrderItem items = 2;
 }
 
-message SaleOrderRes {
-  string note = 1;
+message SaleOrderRes {string note = 1;
   google.protobuf.Timestamp created = 2;
   google.protobuf.Timestamp modified = 3;
   int32 total_units = 4;
   int64 total_price = 5;
   repeated SaleOrderItem items = 6;
+  string id = 7;
+}
+
+message GetSaleOrdersReq {
+  repeated string order_ids = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message SaleOrderSummary {
+  string id = 1;
+  google.protobuf.Timestamp created = 2;
+  google.protobuf.Timestamp modified = 3;
+  int32 total_units = 4;
+  int64 total_price = 5;
+  string note = 6;
+}
+
+message GetSaleOrdersRes {
+  repeated SaleOrderSummary orders = 1;
+  int32 total = 2;
 }
