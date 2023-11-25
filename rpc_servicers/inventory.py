@@ -1,27 +1,26 @@
 import asyncio
 import uuid
-from typing import List, Union, Type
+from typing import List, Type, Union
 
 import grpc
 import tortoise.transactions
-from google.protobuf.timestamp_pb2 import Timestamp
-from tortoise import Tortoise
-from tortoise.functions import Sum
-
 from generated import inventory_pb2, inventory_pb2_grpc
+from google.protobuf.timestamp_pb2 import Timestamp
 from models import (
-    PurchaseModel,
-    PurchaseItemModel,
-    TransactionType,
+    EntityStockStatusType,
     InventoryTransactionModel,
     PurchaseItemEntityModel,
-    EntityStockStatusType,
-    SaleOrderModel,
-    SaleOrderItemModel,
+    PurchaseItemModel,
+    PurchaseModel,
     SaleOrderItemEntityModel,
+    SaleOrderItemModel,
+    SaleOrderModel,
+    TransactionType,
 )
 from services import chunk_size_splitter, logger
-from settings import TORTOISE_DEFAULT_CONN_NAME, CHUNK_SIZE
+from settings import CHUNK_SIZE, TORTOISE_DEFAULT_CONN_NAME
+from tortoise import Tortoise
+from tortoise.functions import Sum
 
 
 class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
@@ -440,7 +439,10 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
                     OFFSET ${len_order_ids + 2}) as sub_query
                 INNER JOIN sale_order ON sub_query.sale_order_id = sale_order.id
                 """
-            params = [str(ele) for ele in request.order_ids] + [_limit, _offset]
+            params = [str(ele) for ele in request.order_ids] + [
+                _limit,
+                _offset,
+            ]
 
         total_promise = queryset.count()
         sql_promise = Tortoise.get_connection(
