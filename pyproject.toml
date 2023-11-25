@@ -5,3 +5,27 @@ target-version = ['py37', 'py38', 'py39']
 tortoise_orm = "settings.TORTOISE_ORM"
 location = "models/migrations"
 src_folder = "./."
+
+[tool.poetry]
+name = "pet-store-python-grpc"
+version = "0.1.0"
+description = ""
+authors = ["Dang Vu <vnhd1995@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+grpcio = "^1.59.2"
+grpcio-tools = "^1.59.2"
+tortoise-orm = "^0.20.0"
+aerich = "^0.7.2"
+protobuf = "^4.25.1"
+python-dotenv = "^1.0.0"
+types-protobuf = "^4.24.0.4"
+asyncpg = "^0.29.0"
+mypy-protobuf = "^3.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
