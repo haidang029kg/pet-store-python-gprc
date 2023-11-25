@@ -1,17 +1,17 @@
 import asyncio
 
 import grpc
-from tortoise import Tortoise
-
 import settings
 from generated import inventory_pb2_grpc
 from rpc_servicers import InventoryServicer
 from services import logger
+from tortoise import Tortoise
 
-_LISTEN_ADDRESS_TEMPLATE = f'{settings.LISTEN_ADDRESS}:%s'
+_LISTEN_ADDRESS_TEMPLATE = f"{settings.LISTEN_ADDRESS}:%s"
 
 
 async def connect_db():
+
     logger.info("Connecting database ...")
     await Tortoise.init(config=settings.TORTOISE_ORM)
     Tortoise.get_connection("default")
@@ -38,12 +38,18 @@ async def serve():
                 ),
             )
         )
-        server.add_secure_port(_LISTEN_ADDRESS_TEMPLATE % settings.GRPC_PORT, server_credentials)
+        server.add_secure_port(
+            _LISTEN_ADDRESS_TEMPLATE % settings.GRPC_PORT, server_credentials
+        )
     else:
         logger.info("loading insecure credentials ...")
         server.add_insecure_port(_LISTEN_ADDRESS_TEMPLATE % settings.GRPC_PORT)
     await server.start()
-    logger.info("Listening on port %s -TLS=%s", settings.GRPC_PORT, settings.ENABLED_TLS)
+    logger.info(
+        "Listening on port %s -TLS=%s",
+        settings.GRPC_PORT,
+        settings.ENABLED_TLS,
+    )
     await server.wait_for_termination()
 
 
