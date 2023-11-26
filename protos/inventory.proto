@@ -30,11 +30,13 @@ message PurchaseRes {
   int32 total_units = 3;
   int64 total_price = 4;
   repeated PurchaseItem items = 5;
+  int32 external_id = 6;
 }
 
 message CreatePurchaseReq {
   string note = 1;
   repeated PurchaseItem items = 2;
+  int32 external_id = 3;
 }
 
 message GetQuantityReq {

@@ -24,6 +24,7 @@ class PurchaseModel(DbModel):
     represents a purchase from a supplier"""
 
     id = fields.UUIDField(pk=True, default=fields.UUIDField)
+    external_id = fields.IntField()
     note = fields.TextField(null=True)
 
     class Meta:

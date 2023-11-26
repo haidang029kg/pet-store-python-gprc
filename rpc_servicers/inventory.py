@@ -56,7 +56,7 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
 
         # Create purchase
         new_purchase = await PurchaseModel.create(
-            id=uuid.uuid4(), note=request.note
+            id=uuid.uuid4(), note=request.note, external_id=request.external_id
         )
 
         items = [
@@ -160,6 +160,7 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
                 )
                 for ele in purchase_items
             ],
+            external_id=new_purchase.external_id,
         )
 
     async def GetQuantity(self, request, context):
@@ -207,7 +208,7 @@ class InventoryServicer(inventory_pb2_grpc.InventoryServiceServicer):
         )
 
         if not agg:
-            raise grpc.RpcError(grpc.StatusCode.NOT_FOUND, "Not found")
+            return inventory_pb2.GetQuantityRes(results=[])
 
         results = [
             inventory_pb2.QuantityBySku(
