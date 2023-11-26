@@ -11,20 +11,21 @@ repos:
                 --application-directories=server_grpc,
                 --application-directories=server_fast_api,
         ]
-        exclude: migrations
+        exclude: "migrations|generated"
   # sorting imports
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.5.4 # Use the revision sha / tag you want to point at
     hooks:
       - id: isort
         args: [ "--profile", "black" ]
-        exclude: migrations
+        exclude: "migrations|generated"
   # reformat code
   - repo: https://github.com/psf/black
     rev: 22.3.0
     hooks:
       - id: black
         language_version: python3.11
+        exclude: "migrations|generated"
   # validate PEP8
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
