@@ -10,7 +10,11 @@ WORKDIR /app
 # copy project
 COPY . .
 
-# install dependencies
+# Install Poetry
 RUN pip install poetry
 
-RUN poetry install
+# Install dependencies from the poetry.lock file
+RUN poetry install --no-interaction --no-ansi
+
+# Activate the virtual environment
+CMD ["poetry", "run", "bash"]
