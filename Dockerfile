@@ -7,10 +7,10 @@ ENV PYTHONUNBUFFERED 1
 # set work directory
 WORKDIR /app
 
-# install dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
 # copy project
 COPY . .
 
+# install dependencies
+RUN pip install poetry
+
+RUN poetry install
