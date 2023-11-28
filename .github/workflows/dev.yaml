@@ -35,4 +35,5 @@ jobs:
             echo "GRPC_PORT=${{ vars.GRPC_PORT }}" > .env
             echo "DATABASE_URI=${{ vars.DATABASE_URI }}" > .env
             echo "TEST_ENV_VAL=${{ vars.TEST_ENV_VAL }}" > .env
+            echo "TEST_ENV_VAL=${{ vars.TEST_ENV_VAL }}" > .env
             docker-compose up -d
