@@ -1,0 +1,38 @@
+name: Deploy Pet Store Inventory Dev
+
+on:
+  push:
+    branches: [ build/dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull & Build Docker Image
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd pet-store-inventory-gprc
+            git pull origin build/dev
+            docker-compose down
+            docker-compose build
+
+      - name: Update ENV File and Deploy
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd pet-store-inventory-gprc
+            echo "ENABLED_TLS=${{ vars.ENABLED_TLS }}" > .env
+            echo "GRPC_PORT=${{ vars.GRPC_PORT }}" > .env
+            echo "DATABASE_URI=${{ vars.DATABASE_URI }}" > .env
+            echo "TEST_ENV_VAL=${{ vars.TEST_ENV_VAL }}" > .env
+            docker-compose up -d
