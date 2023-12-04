@@ -32,7 +32,8 @@ jobs:
           script: |
             cd pet-store-inventory-gprc
             rm .env
-            echo "ENABLED_TLS=${{ vars.ENABLED_TLS }}" > .env
-            echo "GRPC_PORT=${{ vars.GRPC_PORT }}" > .env
-            echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" > .env
+            echo "ENABLED_TLS=${{ vars.ENABLED_TLS }}" >> .env
+            echo "GRPC_PORT=${{ vars.GRPC_PORT }}" >> .env
+            echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
+            echo "BUILD_VERSION=${{ github.run_number }}" >> .env
             docker-compose up -d
