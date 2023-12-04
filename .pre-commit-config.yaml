@@ -1,17 +1,4 @@
 repos:
-  # generate 3rd libs
-  - repo: https://github.com/asottile/seed-isort-config
-    rev: v2.2.0
-    hooks:
-      - id: seed-isort-config
-        args: [ --application-directories=models,
-                --application-directories=services,
-                --application-directories=rpc_servicers,
-                --application-directories=settings,
-                --application-directories=server_grpc,
-                --application-directories=server_fast_api,
-        ]
-        exclude: "migrations|generated"
   # sorting imports
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.5.4 # Use the revision sha / tag you want to point at

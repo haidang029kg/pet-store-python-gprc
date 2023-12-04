@@ -1,5 +1,6 @@
 import asyncio
 
+import asyncpg
 import grpc
 import settings
 from generated import inventory_pb2_grpc
@@ -10,7 +11,20 @@ from tortoise import Tortoise
 _LISTEN_ADDRESS_TEMPLATE = f"{settings.LISTEN_ADDRESS}:%s"
 
 
+async def check_db():
+    try:
+        connection = await asyncpg.connect(settings.DATABASE_URI)
+        connection.get_settings()
+        await connection.close()
+        return True
+    except Exception as error:
+        logger.error(error)
+        return False
+
+
 async def connect_db():
+    if not await check_db():
+        raise Exception("Can not connect to the database")
 
     logger.info("Connecting database ...")
     await Tortoise.init(config=settings.TORTOISE_ORM)
