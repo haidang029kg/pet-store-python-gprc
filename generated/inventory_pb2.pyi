@@ -41,21 +41,7 @@ class PurchaseItem(google.protobuf.message.Message):
         price: builtins.int = ...,
         unique_identifier: builtins.str = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "price",
-            b"price",
-            "product_id",
-            b"product_id",
-            "quantity",
-            b"quantity",
-            "sku",
-            b"sku",
-            "unique_identifier",
-            b"unique_identifier",
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["price", b"price", "product_id", b"product_id", "quantity", b"quantity", "sku", b"sku", "unique_identifier", b"unique_identifier"]) -> None: ...
 
 global___PurchaseItem = PurchaseItem
 
@@ -76,11 +62,7 @@ class PurchaseRes(google.protobuf.message.Message):
     total_units: builtins.int
     total_price: builtins.int
     @property
-    def items(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___PurchaseItem
-    ]: ...
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PurchaseItem]: ...
     external_id: builtins.int
     def __init__(
         self,
@@ -92,29 +74,8 @@ class PurchaseRes(google.protobuf.message.Message):
         items: collections.abc.Iterable[global___PurchaseItem] | None = ...,
         external_id: builtins.int = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "created", b"created", "modified", b"modified"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "created",
-            b"created",
-            "external_id",
-            b"external_id",
-            "items",
-            b"items",
-            "modified",
-            b"modified",
-            "total_price",
-            b"total_price",
-            "total_units",
-            b"total_units",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["created", b"created", "modified", b"modified"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "external_id", b"external_id", "items", b"items", "modified", b"modified", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
 
 global___PurchaseRes = PurchaseRes
 
@@ -127,11 +88,7 @@ class CreatePurchaseReq(google.protobuf.message.Message):
     EXTERNAL_ID_FIELD_NUMBER: builtins.int
     note: builtins.str
     @property
-    def items(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___PurchaseItem
-    ]: ...
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PurchaseItem]: ...
     external_id: builtins.int
     def __init__(
         self,
@@ -140,12 +97,7 @@ class CreatePurchaseReq(google.protobuf.message.Message):
         items: collections.abc.Iterable[global___PurchaseItem] | None = ...,
         external_id: builtins.int = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "external_id", b"external_id", "items", b"items", "note", b"note"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["external_id", b"external_id", "items", b"items", "note", b"note"]) -> None: ...
 
 global___CreatePurchaseReq = CreatePurchaseReq
 
@@ -157,23 +109,14 @@ class GetQuantityReq(google.protobuf.message.Message):
     SKUS_FIELD_NUMBER: builtins.int
     product_id: builtins.str
     @property
-    def skus(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def skus(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     def __init__(
         self,
         *,
         product_id: builtins.str = ...,
         skus: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "product_id", b"product_id", "skus", b"skus"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["product_id", b"product_id", "skus", b"skus"]) -> None: ...
 
 global___GetQuantityReq = GetQuantityReq
 
@@ -194,12 +137,7 @@ class QuantityBySku(google.protobuf.message.Message):
         sku: builtins.str = ...,
         quantity: builtins.int = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "product_id", b"product_id", "quantity", b"quantity", "sku", b"sku"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["product_id", b"product_id", "quantity", b"quantity", "sku", b"sku"]) -> None: ...
 
 global___QuantityBySku = QuantityBySku
 
@@ -209,19 +147,13 @@ class GetQuantityRes(google.protobuf.message.Message):
 
     RESULTS_FIELD_NUMBER: builtins.int
     @property
-    def results(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___QuantityBySku
-    ]: ...
+    def results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___QuantityBySku]: ...
     def __init__(
         self,
         *,
         results: collections.abc.Iterable[global___QuantityBySku] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing_extensions.Literal["results", b"results"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["results", b"results"]) -> None: ...
 
 global___GetQuantityRes = GetQuantityRes
 
@@ -249,21 +181,7 @@ class SaleOrderItem(google.protobuf.message.Message):
         price: builtins.int = ...,
         unique_identifier: builtins.str = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "price",
-            b"price",
-            "product_id",
-            b"product_id",
-            "quantity",
-            b"quantity",
-            "sku",
-            b"sku",
-            "unique_identifier",
-            b"unique_identifier",
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["price", b"price", "product_id", b"product_id", "quantity", b"quantity", "sku", b"sku", "unique_identifier", b"unique_identifier"]) -> None: ...
 
 global___SaleOrderItem = SaleOrderItem
 
@@ -275,23 +193,14 @@ class CreateSaleOrderReq(google.protobuf.message.Message):
     ITEMS_FIELD_NUMBER: builtins.int
     note: builtins.str
     @property
-    def items(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___SaleOrderItem
-    ]: ...
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderItem]: ...
     def __init__(
         self,
         *,
         note: builtins.str = ...,
         items: collections.abc.Iterable[global___SaleOrderItem] | None = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "items", b"items", "note", b"note"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["items", b"items", "note", b"note"]) -> None: ...
 
 global___CreateSaleOrderReq = CreateSaleOrderReq
 
@@ -314,11 +223,7 @@ class SaleOrderRes(google.protobuf.message.Message):
     total_units: builtins.int
     total_price: builtins.int
     @property
-    def items(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___SaleOrderItem
-    ]: ...
+    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderItem]: ...
     id: builtins.str
     def __init__(
         self,
@@ -331,31 +236,8 @@ class SaleOrderRes(google.protobuf.message.Message):
         items: collections.abc.Iterable[global___SaleOrderItem] | None = ...,
         id: builtins.str = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "created", b"created", "modified", b"modified"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "created",
-            b"created",
-            "id",
-            b"id",
-            "items",
-            b"items",
-            "modified",
-            b"modified",
-            "note",
-            b"note",
-            "total_price",
-            b"total_price",
-            "total_units",
-            b"total_units",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["created", b"created", "modified", b"modified"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "id", b"id", "items", b"items", "modified", b"modified", "note", b"note", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
 
 global___SaleOrderRes = SaleOrderRes
 
@@ -367,11 +249,7 @@ class GetSaleOrdersReq(google.protobuf.message.Message):
     LIMIT_FIELD_NUMBER: builtins.int
     OFFSET_FIELD_NUMBER: builtins.int
     @property
-    def order_ids(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[
-        builtins.str
-    ]: ...
+    def order_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     limit: builtins.int
     offset: builtins.int
     def __init__(
@@ -381,12 +259,7 @@ class GetSaleOrdersReq(google.protobuf.message.Message):
         limit: builtins.int = ...,
         offset: builtins.int = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "limit", b"limit", "offset", b"offset", "order_ids", b"order_ids"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["limit", b"limit", "offset", b"offset", "order_ids", b"order_ids"]) -> None: ...
 
 global___GetSaleOrdersReq = GetSaleOrdersReq
 
@@ -418,29 +291,8 @@ class SaleOrderSummary(google.protobuf.message.Message):
         total_price: builtins.int = ...,
         note: builtins.str = ...,
     ) -> None: ...
-    def HasField(
-        self,
-        field_name: typing_extensions.Literal[
-            "created", b"created", "modified", b"modified"
-        ],
-    ) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "created",
-            b"created",
-            "id",
-            b"id",
-            "modified",
-            b"modified",
-            "note",
-            b"note",
-            "total_price",
-            b"total_price",
-            "total_units",
-            b"total_units",
-        ],
-    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["created", b"created", "modified", b"modified"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "id", b"id", "modified", b"modified", "note", b"note", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
 
 global___SaleOrderSummary = SaleOrderSummary
 
@@ -451,24 +303,14 @@ class GetSaleOrdersRes(google.protobuf.message.Message):
     ORDERS_FIELD_NUMBER: builtins.int
     TOTAL_FIELD_NUMBER: builtins.int
     @property
-    def orders(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        global___SaleOrderSummary
-    ]: ...
+    def orders(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderSummary]: ...
     total: builtins.int
     def __init__(
         self,
         *,
-        orders: collections.abc.Iterable[global___SaleOrderSummary]
-        | None = ...,
+        orders: collections.abc.Iterable[global___SaleOrderSummary] | None = ...,
         total: builtins.int = ...,
     ) -> None: ...
-    def ClearField(
-        self,
-        field_name: typing_extensions.Literal[
-            "orders", b"orders", "total", b"total"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["orders", b"orders", "total", b"total"]) -> None: ...
 
 global___GetSaleOrdersRes = GetSaleOrdersRes

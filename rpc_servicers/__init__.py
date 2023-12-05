@@ -1,1 +1,2 @@
-from .inventory import InventoryServicer # noqa
+from .hello import HelloServicer  # noqa
+from .inventory import InventoryServicer  # noqa

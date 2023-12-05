@@ -3,8 +3,8 @@ import asyncio
 import asyncpg
 import grpc
 import settings
-from generated import inventory_pb2_grpc
-from rpc_servicers import InventoryServicer
+from generated import hello_pb2_grpc, inventory_pb2_grpc
+from rpc_servicers import HelloServicer, InventoryServicer
 from services import logger
 from tortoise import Tortoise
 
@@ -37,6 +37,7 @@ async def serve():
     #
     logger.info("Starting asyncio server ...")
     server = grpc.aio.server()
+    hello_pb2_grpc.add_HelloServiceServicer_to_server(HelloServicer(), server)
     inventory_pb2_grpc.add_InventoryServiceServicer_to_server(
         InventoryServicer(), server
     )
