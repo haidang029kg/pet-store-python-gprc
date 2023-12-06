@@ -1,11 +1,16 @@
 import os
 
+import asyncpg
 from dotenv import load_dotenv
 
 #
 load_dotenv()
 #
-ENABLED_TLS = os.environ.get("ENABLED_TLS", "False") in ["True", "true", "1"]
+ENABLED_TLS: bool = os.environ.get("ENABLED_TLS", "False") in [
+    "True",
+    "true",
+    "1",
+]
 LISTEN_ADDRESS = os.environ.get("LISTEN_ADDRESS", "0.0.0.0")
 GRPC_PORT = os.environ.get("GRPC_PORT", "50051")
 #
@@ -57,3 +62,14 @@ if ENABLED_TLS is True:
         SERVER_CERTIFICATE_KEY_FILE_PATH
     )
     ROOT_CERTIFICATE = _load_credential_from_file(ROOT_CERTIFICATE_FILE_PATH)
+
+
+async def check_db_connection(uri: str) -> bool:
+    try:
+        connection = await asyncpg.connect(uri)
+        connection.get_settings()
+        await connection.close()
+        return True
+    except Exception as error:
+        print(error)
+        return False

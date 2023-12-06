@@ -1,29 +1,17 @@
 import asyncio
 
-import asyncpg
 import grpc
 import settings
 from generated import hello_pb2_grpc, inventory_pb2_grpc
-from rpc_servicers import HelloServicer, InventoryServicer
-from services import logger
+from rpc_servicers import HelloServicer, InventoryRpcServicer
+from services.logger import logger
 from tortoise import Tortoise
 
 _LISTEN_ADDRESS_TEMPLATE = f"{settings.LISTEN_ADDRESS}:%s"
 
 
-async def check_db():
-    try:
-        connection = await asyncpg.connect(settings.DATABASE_URI)
-        connection.get_settings()
-        await connection.close()
-        return True
-    except Exception as error:
-        logger.error(error)
-        return False
-
-
 async def connect_db():
-    if not await check_db():
+    if not await settings.check_db_connection(uri=settings.DATABASE_URI):
         raise Exception("Can not connect to the database")
 
     logger.info("Connecting database ...")
@@ -39,7 +27,7 @@ async def serve():
     server = grpc.aio.server()
     hello_pb2_grpc.add_HelloServiceServicer_to_server(HelloServicer(), server)
     inventory_pb2_grpc.add_InventoryServiceServicer_to_server(
-        InventoryServicer(), server
+        InventoryRpcServicer(), server
     )
 
     if settings.ENABLED_TLS is True:

@@ -14,11 +14,6 @@ class InventoryServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreatePurchase = channel.unary_unary(
-                '/inventory.InventoryService/CreatePurchase',
-                request_serializer=inventory__pb2.CreatePurchaseReq.SerializeToString,
-                response_deserializer=inventory__pb2.PurchaseRes.FromString,
-                )
         self.GetQuantity = channel.unary_unary(
                 '/inventory.InventoryService/GetQuantity',
                 request_serializer=inventory__pb2.GetQuantityReq.SerializeToString,
@@ -38,13 +33,6 @@ class InventoryServiceStub(object):
 
 class InventoryServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
-
-    def CreatePurchase(self, request, context):
-        """Create a purchase
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def GetQuantity(self, request, context):
         """Get quantity by product ID or SKUs
@@ -70,11 +58,6 @@ class InventoryServiceServicer(object):
 
 def add_InventoryServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreatePurchase': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreatePurchase,
-                    request_deserializer=inventory__pb2.CreatePurchaseReq.FromString,
-                    response_serializer=inventory__pb2.PurchaseRes.SerializeToString,
-            ),
             'GetQuantity': grpc.unary_unary_rpc_method_handler(
                     servicer.GetQuantity,
                     request_deserializer=inventory__pb2.GetQuantityReq.FromString,
@@ -99,23 +82,6 @@ def add_InventoryServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class InventoryService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def CreatePurchase(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryService/CreatePurchase',
-            inventory__pb2.CreatePurchaseReq.SerializeToString,
-            inventory__pb2.PurchaseRes.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetQuantity(request,

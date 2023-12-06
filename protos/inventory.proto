@@ -3,9 +3,6 @@ import "google/protobuf/timestamp.proto"; // Import the timestamp type
 package inventory;
 service InventoryService {
 
-  // Create a purchase
-  rpc CreatePurchase(CreatePurchaseReq) returns (PurchaseRes);
-
   // Get quantity by product ID or SKUs
   rpc GetQuantity(GetQuantityReq) returns (GetQuantityRes);
 
@@ -16,28 +13,6 @@ service InventoryService {
   rpc GetSaleOrders(GetSaleOrdersReq) returns (GetSaleOrdersRes);
 }
 
-message PurchaseItem {
-  string product_id = 1;
-  string sku = 2;
-  int32 quantity = 3;
-  int32 price = 4;
-  string unique_identifier = 5; // Use string for Union[str, None]
-}
-
-message PurchaseRes {
-  google.protobuf.Timestamp created = 1;
-  google.protobuf.Timestamp modified = 2;
-  int32 total_units = 3;
-  int64 total_price = 4;
-  repeated PurchaseItem items = 5;
-  int32 external_id = 6;
-}
-
-message CreatePurchaseReq {
-  string note = 1;
-  repeated PurchaseItem items = 2;
-  int32 external_id = 3;
-}
 
 message GetQuantityReq {
   string product_id = 1;
@@ -63,7 +38,7 @@ message SaleOrderItem {
 }
 
 message CreateSaleOrderReq {
-  string note = 1;
+  int32 id = 1;
   repeated SaleOrderItem items = 2;
 }
 
@@ -73,25 +48,36 @@ message SaleOrderRes {string note = 1;
   int32 total_units = 4;
   int64 total_price = 5;
   repeated SaleOrderItem items = 6;
-  string id = 7;
+  int32 id = 7;
+  string status = 8;
+}
+
+enum SaleOrderStatus {
+  NOT_SET = 0;
+  DRAFT = 1;
+  CONFIRMED = 2;
+  SHIPPED = 3;
+  DELIVERED = 4;
+  CANCELLED = 5;
 }
 
 message GetSaleOrdersReq {
-  repeated string order_ids = 1;
+  repeated int32 order_ids = 1;
   int32 limit = 2;
   int32 offset = 3;
+  SaleOrderStatus status = 4;
 }
 
 message SaleOrderSummary {
-  string id = 1;
+  int32 id = 1;
   google.protobuf.Timestamp created = 2;
   google.protobuf.Timestamp modified = 3;
   int32 total_units = 4;
   int64 total_price = 5;
-  string note = 6;
+  string status = 6;
 }
 
 message GetSaleOrdersRes {
-  repeated SaleOrderSummary orders = 1;
+  repeated SaleOrderSummary results = 1;
   int32 total = 2;
 }

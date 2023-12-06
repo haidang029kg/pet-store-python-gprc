@@ -1,6 +1,6 @@
 from enum import Enum
 
-from tortoise import fields
+from tortoise import fields  # noqa
 
 from .base import DbModel
 
@@ -19,13 +19,19 @@ class EntityStockStatusType(str, Enum):
     ADJUSTED = "adjusted"
 
 
+class SaleOrderStatusType(str, Enum):
+    DRAFT = "draft"
+    CONFIRMED = "confirmed"
+    CANCELLED = "cancelled"
+    SHIPPED = "shipped"
+    DELIVERED = "delivered"
+
+
 class PurchaseModel(DbModel):
     """Purchase Model
     represents a purchase from a supplier"""
 
-    id = fields.UUIDField(pk=True, default=fields.UUIDField)
-    external_id = fields.IntField()
-    note = fields.TextField(null=True)
+    id = fields.IntField(pk=True)
 
     class Meta:
         table = "purchase"
@@ -83,8 +89,10 @@ class SaleOrderModel(DbModel):
     """SaleOrder Model
     represents a sale to a customer"""
 
-    id = fields.UUIDField(pk=True, default=fields.UUIDField)
-    note = fields.TextField(null=True)
+    id = fields.IntField(pk=True)
+    status = fields.CharEnumField(
+        SaleOrderStatusType, default=SaleOrderStatusType.DRAFT.value
+    )
 
     class Meta:
         table = "sale_order"
