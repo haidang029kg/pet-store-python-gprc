@@ -6,100 +6,41 @@ import builtins
 import collections.abc
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
+import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
 import sys
+import typing
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
-class PurchaseItem(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+class _SaleOrderStatus:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
 
-    PRODUCT_ID_FIELD_NUMBER: builtins.int
-    SKU_FIELD_NUMBER: builtins.int
-    QUANTITY_FIELD_NUMBER: builtins.int
-    PRICE_FIELD_NUMBER: builtins.int
-    UNIQUE_IDENTIFIER_FIELD_NUMBER: builtins.int
-    product_id: builtins.str
-    sku: builtins.str
-    quantity: builtins.int
-    price: builtins.int
-    unique_identifier: builtins.str
-    """Use string for Union[str, None]"""
-    def __init__(
-        self,
-        *,
-        product_id: builtins.str = ...,
-        sku: builtins.str = ...,
-        quantity: builtins.int = ...,
-        price: builtins.int = ...,
-        unique_identifier: builtins.str = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["price", b"price", "product_id", b"product_id", "quantity", b"quantity", "sku", b"sku", "unique_identifier", b"unique_identifier"]) -> None: ...
+class _SaleOrderStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SaleOrderStatus.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    NOT_SET: _SaleOrderStatus.ValueType  # 0
+    DRAFT: _SaleOrderStatus.ValueType  # 1
+    CONFIRMED: _SaleOrderStatus.ValueType  # 2
+    SHIPPED: _SaleOrderStatus.ValueType  # 3
+    DELIVERED: _SaleOrderStatus.ValueType  # 4
+    CANCELLED: _SaleOrderStatus.ValueType  # 5
 
-global___PurchaseItem = PurchaseItem
+class SaleOrderStatus(_SaleOrderStatus, metaclass=_SaleOrderStatusEnumTypeWrapper): ...
 
-@typing_extensions.final
-class PurchaseRes(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    CREATED_FIELD_NUMBER: builtins.int
-    MODIFIED_FIELD_NUMBER: builtins.int
-    TOTAL_UNITS_FIELD_NUMBER: builtins.int
-    TOTAL_PRICE_FIELD_NUMBER: builtins.int
-    ITEMS_FIELD_NUMBER: builtins.int
-    EXTERNAL_ID_FIELD_NUMBER: builtins.int
-    @property
-    def created(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
-    @property
-    def modified(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
-    total_units: builtins.int
-    total_price: builtins.int
-    @property
-    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PurchaseItem]: ...
-    external_id: builtins.int
-    def __init__(
-        self,
-        *,
-        created: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        modified: google.protobuf.timestamp_pb2.Timestamp | None = ...,
-        total_units: builtins.int = ...,
-        total_price: builtins.int = ...,
-        items: collections.abc.Iterable[global___PurchaseItem] | None = ...,
-        external_id: builtins.int = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["created", b"created", "modified", b"modified"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "external_id", b"external_id", "items", b"items", "modified", b"modified", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
-
-global___PurchaseRes = PurchaseRes
-
-@typing_extensions.final
-class CreatePurchaseReq(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    NOTE_FIELD_NUMBER: builtins.int
-    ITEMS_FIELD_NUMBER: builtins.int
-    EXTERNAL_ID_FIELD_NUMBER: builtins.int
-    note: builtins.str
-    @property
-    def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PurchaseItem]: ...
-    external_id: builtins.int
-    def __init__(
-        self,
-        *,
-        note: builtins.str = ...,
-        items: collections.abc.Iterable[global___PurchaseItem] | None = ...,
-        external_id: builtins.int = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["external_id", b"external_id", "items", b"items", "note", b"note"]) -> None: ...
-
-global___CreatePurchaseReq = CreatePurchaseReq
+NOT_SET: SaleOrderStatus.ValueType  # 0
+DRAFT: SaleOrderStatus.ValueType  # 1
+CONFIRMED: SaleOrderStatus.ValueType  # 2
+SHIPPED: SaleOrderStatus.ValueType  # 3
+DELIVERED: SaleOrderStatus.ValueType  # 4
+CANCELLED: SaleOrderStatus.ValueType  # 5
+global___SaleOrderStatus = SaleOrderStatus
 
 @typing_extensions.final
 class GetQuantityReq(google.protobuf.message.Message):
@@ -189,18 +130,18 @@ global___SaleOrderItem = SaleOrderItem
 class CreateSaleOrderReq(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    NOTE_FIELD_NUMBER: builtins.int
+    ID_FIELD_NUMBER: builtins.int
     ITEMS_FIELD_NUMBER: builtins.int
-    note: builtins.str
+    id: builtins.int
     @property
     def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderItem]: ...
     def __init__(
         self,
         *,
-        note: builtins.str = ...,
+        id: builtins.int = ...,
         items: collections.abc.Iterable[global___SaleOrderItem] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["items", b"items", "note", b"note"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "items", b"items"]) -> None: ...
 
 global___CreateSaleOrderReq = CreateSaleOrderReq
 
@@ -215,6 +156,7 @@ class SaleOrderRes(google.protobuf.message.Message):
     TOTAL_PRICE_FIELD_NUMBER: builtins.int
     ITEMS_FIELD_NUMBER: builtins.int
     ID_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
     note: builtins.str
     @property
     def created(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
@@ -224,7 +166,8 @@ class SaleOrderRes(google.protobuf.message.Message):
     total_price: builtins.int
     @property
     def items(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderItem]: ...
-    id: builtins.str
+    id: builtins.int
+    status: builtins.str
     def __init__(
         self,
         *,
@@ -234,10 +177,11 @@ class SaleOrderRes(google.protobuf.message.Message):
         total_units: builtins.int = ...,
         total_price: builtins.int = ...,
         items: collections.abc.Iterable[global___SaleOrderItem] | None = ...,
-        id: builtins.str = ...,
+        id: builtins.int = ...,
+        status: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["created", b"created", "modified", b"modified"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "id", b"id", "items", b"items", "modified", b"modified", "note", b"note", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "id", b"id", "items", b"items", "modified", b"modified", "note", b"note", "status", b"status", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
 
 global___SaleOrderRes = SaleOrderRes
 
@@ -248,18 +192,21 @@ class GetSaleOrdersReq(google.protobuf.message.Message):
     ORDER_IDS_FIELD_NUMBER: builtins.int
     LIMIT_FIELD_NUMBER: builtins.int
     OFFSET_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
     @property
-    def order_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def order_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     limit: builtins.int
     offset: builtins.int
+    status: global___SaleOrderStatus.ValueType
     def __init__(
         self,
         *,
-        order_ids: collections.abc.Iterable[builtins.str] | None = ...,
+        order_ids: collections.abc.Iterable[builtins.int] | None = ...,
         limit: builtins.int = ...,
         offset: builtins.int = ...,
+        status: global___SaleOrderStatus.ValueType = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["limit", b"limit", "offset", b"offset", "order_ids", b"order_ids"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["limit", b"limit", "offset", b"offset", "order_ids", b"order_ids", "status", b"status"]) -> None: ...
 
 global___GetSaleOrdersReq = GetSaleOrdersReq
 
@@ -272,27 +219,27 @@ class SaleOrderSummary(google.protobuf.message.Message):
     MODIFIED_FIELD_NUMBER: builtins.int
     TOTAL_UNITS_FIELD_NUMBER: builtins.int
     TOTAL_PRICE_FIELD_NUMBER: builtins.int
-    NOTE_FIELD_NUMBER: builtins.int
-    id: builtins.str
+    STATUS_FIELD_NUMBER: builtins.int
+    id: builtins.int
     @property
     def created(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
     def modified(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     total_units: builtins.int
     total_price: builtins.int
-    note: builtins.str
+    status: builtins.str
     def __init__(
         self,
         *,
-        id: builtins.str = ...,
+        id: builtins.int = ...,
         created: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         modified: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         total_units: builtins.int = ...,
         total_price: builtins.int = ...,
-        note: builtins.str = ...,
+        status: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["created", b"created", "modified", b"modified"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "id", b"id", "modified", b"modified", "note", b"note", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["created", b"created", "id", b"id", "modified", b"modified", "status", b"status", "total_price", b"total_price", "total_units", b"total_units"]) -> None: ...
 
 global___SaleOrderSummary = SaleOrderSummary
 
@@ -300,17 +247,17 @@ global___SaleOrderSummary = SaleOrderSummary
 class GetSaleOrdersRes(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    ORDERS_FIELD_NUMBER: builtins.int
+    RESULTS_FIELD_NUMBER: builtins.int
     TOTAL_FIELD_NUMBER: builtins.int
     @property
-    def orders(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderSummary]: ...
+    def results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SaleOrderSummary]: ...
     total: builtins.int
     def __init__(
         self,
         *,
-        orders: collections.abc.Iterable[global___SaleOrderSummary] | None = ...,
+        results: collections.abc.Iterable[global___SaleOrderSummary] | None = ...,
         total: builtins.int = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["orders", b"orders", "total", b"total"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["results", b"results", "total", b"total"]) -> None: ...
 
 global___GetSaleOrdersRes = GetSaleOrdersRes

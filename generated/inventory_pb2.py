@@ -14,37 +14,33 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0finventory.proto\x12\tinventory\x1a\x1fgoogle/protobuf/timestamp.proto\"k\n\x0cPurchaseItem\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0b\n\x03sku\x18\x02 \x01(\t\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x12\r\n\x05price\x18\x04 \x01(\x05\x12\x19\n\x11unique_identifier\x18\x05 \x01(\t\"\xcf\x01\n\x0bPurchaseRes\x12+\n\x07\x63reated\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08modified\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0btotal_units\x18\x03 \x01(\x05\x12\x13\n\x0btotal_price\x18\x04 \x01(\x03\x12&\n\x05items\x18\x05 \x03(\x0b\x32\x17.inventory.PurchaseItem\x12\x13\n\x0b\x65xternal_id\x18\x06 \x01(\x05\"^\n\x11\x43reatePurchaseReq\x12\x0c\n\x04note\x18\x01 \x01(\t\x12&\n\x05items\x18\x02 \x03(\x0b\x32\x17.inventory.PurchaseItem\x12\x13\n\x0b\x65xternal_id\x18\x03 \x01(\x05\"2\n\x0eGetQuantityReq\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0c\n\x04skus\x18\x02 \x03(\t\"B\n\rQuantityBySku\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0b\n\x03sku\x18\x02 \x01(\t\x12\x10\n\x08quantity\x18\x03 \x01(\x05\";\n\x0eGetQuantityRes\x12)\n\x07results\x18\x01 \x03(\x0b\x32\x18.inventory.QuantityBySku\"l\n\rSaleOrderItem\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0b\n\x03sku\x18\x02 \x01(\t\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x12\r\n\x05price\x18\x04 \x01(\x03\x12\x19\n\x11unique_identifier\x18\x05 \x01(\t\"K\n\x12\x43reateSaleOrderReq\x12\x0c\n\x04note\x18\x01 \x01(\t\x12\'\n\x05items\x18\x02 \x03(\x0b\x32\x18.inventory.SaleOrderItem\"\xd6\x01\n\x0cSaleOrderRes\x12\x0c\n\x04note\x18\x01 \x01(\t\x12+\n\x07\x63reated\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08modified\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0btotal_units\x18\x04 \x01(\x05\x12\x13\n\x0btotal_price\x18\x05 \x01(\x03\x12\'\n\x05items\x18\x06 \x03(\x0b\x32\x18.inventory.SaleOrderItem\x12\n\n\x02id\x18\x07 \x01(\t\"D\n\x10GetSaleOrdersReq\x12\x11\n\torder_ids\x18\x01 \x03(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0e\n\x06offset\x18\x03 \x01(\x05\"\xb1\x01\n\x10SaleOrderSummary\x12\n\n\x02id\x18\x01 \x01(\t\x12+\n\x07\x63reated\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08modified\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0btotal_units\x18\x04 \x01(\x05\x12\x13\n\x0btotal_price\x18\x05 \x01(\x03\x12\x0c\n\x04note\x18\x06 \x01(\t\"N\n\x10GetSaleOrdersRes\x12+\n\x06orders\x18\x01 \x03(\x0b\x32\x1b.inventory.SaleOrderSummary\x12\r\n\x05total\x18\x02 \x01(\x05\x32\xb5\x02\n\x10InventoryService\x12\x46\n\x0e\x43reatePurchase\x12\x1c.inventory.CreatePurchaseReq\x1a\x16.inventory.PurchaseRes\x12\x43\n\x0bGetQuantity\x12\x19.inventory.GetQuantityReq\x1a\x19.inventory.GetQuantityRes\x12I\n\x0f\x43reateSaleOrder\x12\x1d.inventory.CreateSaleOrderReq\x1a\x17.inventory.SaleOrderRes\x12I\n\rGetSaleOrders\x12\x1b.inventory.GetSaleOrdersReq\x1a\x1b.inventory.GetSaleOrdersResb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0finventory.proto\x12\tinventory\x1a\x1fgoogle/protobuf/timestamp.proto\"2\n\x0eGetQuantityReq\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0c\n\x04skus\x18\x02 \x03(\t\"B\n\rQuantityBySku\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0b\n\x03sku\x18\x02 \x01(\t\x12\x10\n\x08quantity\x18\x03 \x01(\x05\";\n\x0eGetQuantityRes\x12)\n\x07results\x18\x01 \x03(\x0b\x32\x18.inventory.QuantityBySku\"l\n\rSaleOrderItem\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x0b\n\x03sku\x18\x02 \x01(\t\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x12\r\n\x05price\x18\x04 \x01(\x03\x12\x19\n\x11unique_identifier\x18\x05 \x01(\t\"I\n\x12\x43reateSaleOrderReq\x12\n\n\x02id\x18\x01 \x01(\x05\x12\'\n\x05items\x18\x02 \x03(\x0b\x32\x18.inventory.SaleOrderItem\"\xe6\x01\n\x0cSaleOrderRes\x12\x0c\n\x04note\x18\x01 \x01(\t\x12+\n\x07\x63reated\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08modified\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0btotal_units\x18\x04 \x01(\x05\x12\x13\n\x0btotal_price\x18\x05 \x01(\x03\x12\'\n\x05items\x18\x06 \x03(\x0b\x32\x18.inventory.SaleOrderItem\x12\n\n\x02id\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\t\"p\n\x10GetSaleOrdersReq\x12\x11\n\torder_ids\x18\x01 \x03(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0e\n\x06offset\x18\x03 \x01(\x05\x12*\n\x06status\x18\x04 \x01(\x0e\x32\x1a.inventory.SaleOrderStatus\"\xb3\x01\n\x10SaleOrderSummary\x12\n\n\x02id\x18\x01 \x01(\x05\x12+\n\x07\x63reated\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08modified\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0btotal_units\x18\x04 \x01(\x05\x12\x13\n\x0btotal_price\x18\x05 \x01(\x03\x12\x0e\n\x06status\x18\x06 \x01(\t\"O\n\x10GetSaleOrdersRes\x12,\n\x07results\x18\x01 \x03(\x0b\x32\x1b.inventory.SaleOrderSummary\x12\r\n\x05total\x18\x02 \x01(\x05*c\n\x0fSaleOrderStatus\x12\x0b\n\x07NOT_SET\x10\x00\x12\t\n\x05\x44RAFT\x10\x01\x12\r\n\tCONFIRMED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03\x12\r\n\tDELIVERED\x10\x04\x12\r\n\tCANCELLED\x10\x05\x32\xed\x01\n\x10InventoryService\x12\x43\n\x0bGetQuantity\x12\x19.inventory.GetQuantityReq\x1a\x19.inventory.GetQuantityRes\x12I\n\x0f\x43reateSaleOrder\x12\x1d.inventory.CreateSaleOrderReq\x1a\x17.inventory.SaleOrderRes\x12I\n\rGetSaleOrders\x12\x1b.inventory.GetSaleOrdersReq\x1a\x1b.inventory.GetSaleOrdersResb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'inventory_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_PURCHASEITEM']._serialized_start=63
-  _globals['_PURCHASEITEM']._serialized_end=170
-  _globals['_PURCHASERES']._serialized_start=173
-  _globals['_PURCHASERES']._serialized_end=380
-  _globals['_CREATEPURCHASEREQ']._serialized_start=382
-  _globals['_CREATEPURCHASEREQ']._serialized_end=476
-  _globals['_GETQUANTITYREQ']._serialized_start=478
-  _globals['_GETQUANTITYREQ']._serialized_end=528
-  _globals['_QUANTITYBYSKU']._serialized_start=530
-  _globals['_QUANTITYBYSKU']._serialized_end=596
-  _globals['_GETQUANTITYRES']._serialized_start=598
-  _globals['_GETQUANTITYRES']._serialized_end=657
-  _globals['_SALEORDERITEM']._serialized_start=659
-  _globals['_SALEORDERITEM']._serialized_end=767
-  _globals['_CREATESALEORDERREQ']._serialized_start=769
-  _globals['_CREATESALEORDERREQ']._serialized_end=844
-  _globals['_SALEORDERRES']._serialized_start=847
-  _globals['_SALEORDERRES']._serialized_end=1061
-  _globals['_GETSALEORDERSREQ']._serialized_start=1063
-  _globals['_GETSALEORDERSREQ']._serialized_end=1131
-  _globals['_SALEORDERSUMMARY']._serialized_start=1134
-  _globals['_SALEORDERSUMMARY']._serialized_end=1311
-  _globals['_GETSALEORDERSRES']._serialized_start=1313
-  _globals['_GETSALEORDERSRES']._serialized_end=1391
-  _globals['_INVENTORYSERVICE']._serialized_start=1394
-  _globals['_INVENTORYSERVICE']._serialized_end=1703
+  _globals['_SALEORDERSTATUS']._serialized_start=1039
+  _globals['_SALEORDERSTATUS']._serialized_end=1138
+  _globals['_GETQUANTITYREQ']._serialized_start=63
+  _globals['_GETQUANTITYREQ']._serialized_end=113
+  _globals['_QUANTITYBYSKU']._serialized_start=115
+  _globals['_QUANTITYBYSKU']._serialized_end=181
+  _globals['_GETQUANTITYRES']._serialized_start=183
+  _globals['_GETQUANTITYRES']._serialized_end=242
+  _globals['_SALEORDERITEM']._serialized_start=244
+  _globals['_SALEORDERITEM']._serialized_end=352
+  _globals['_CREATESALEORDERREQ']._serialized_start=354
+  _globals['_CREATESALEORDERREQ']._serialized_end=427
+  _globals['_SALEORDERRES']._serialized_start=430
+  _globals['_SALEORDERRES']._serialized_end=660
+  _globals['_GETSALEORDERSREQ']._serialized_start=662
+  _globals['_GETSALEORDERSREQ']._serialized_end=774
+  _globals['_SALEORDERSUMMARY']._serialized_start=777
+  _globals['_SALEORDERSUMMARY']._serialized_end=956
+  _globals['_GETSALEORDERSRES']._serialized_start=958
+  _globals['_GETSALEORDERSRES']._serialized_end=1037
+  _globals['_INVENTORYSERVICE']._serialized_start=1141
+  _globals['_INVENTORYSERVICE']._serialized_end=1378
 # @@protoc_insertion_point(module_scope)

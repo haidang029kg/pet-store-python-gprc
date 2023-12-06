@@ -1,9 +1,8 @@
 version: '3.8'
 
 services:
-  # gRPC Inventory
-  inventory:
-    container_name: inv_container
+  grpc:
+    container_name: grpc_container
     build: .
     command: >
         sh -c "poetry run python server_grpc.py
@@ -15,6 +14,18 @@ services:
       - "50051:50051"
     env_file:
       - ./.env
+
+  fastapi:
+    container_name: fastapi_container
+    build: .
+    command: >
+        sh -c "poetry run uvicorn server_fastapi:app
+        "
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+        - "8000:8000"
 
 networks:
     default:
