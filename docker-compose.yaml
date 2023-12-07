@@ -19,7 +19,7 @@ services:
     container_name: fastapi_container
     build: .
     command: >
-        sh -c "poetry run uvicorn server_fastapi:app
+        sh -c "poetry run uvicorn server_fastapi:app  --host 0.0.0.0 --port 8000
         "
     restart: always
     volumes:

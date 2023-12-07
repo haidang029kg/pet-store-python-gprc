@@ -2,13 +2,18 @@ import asyncio
 
 import settings
 from fastapi import FastAPI
+from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from tortoise import Tortoise
 
 from fast_routers import PurchaseRouter
 from fast_routers.sale_order import SaleOrderRouter
 
-app = FastAPI()
+middleware = [
+    # TODO: change to specific origins
+    Middleware(CORSMiddleware, allow_origins=["*"]),
+]
+app = FastAPI(middleware=middleware)
 
 
 @app.get("/health")
@@ -19,17 +24,6 @@ async def root():
 app.include_router(PurchaseRouter(), prefix="/purchases", tags=["purchases"])
 app.include_router(
     SaleOrderRouter(), prefix="/sale-orders", tags=["sale-orders"]
-)
-# app config
-origins = [
-    "http://localhost:4200",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_methods=["*"],
-    allow_headers=["*"],
 )
 
 
