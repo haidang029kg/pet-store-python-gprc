@@ -1,4 +1,17 @@
-from typing import List
+from typing import List, Type, Union
+
+from models import PurchaseItemEntityModel, SaleOrderItemEntityModel
+
+
+async def bulk_create_model(
+    model: Union[
+        Type[PurchaseItemEntityModel], Type[SaleOrderItemEntityModel]
+    ],
+    items: List[Union[PurchaseItemEntityModel, SaleOrderItemEntityModel]],
+):
+    if items:
+        await model.bulk_create(items)
+        items.clear()
 
 
 def chunk_size_splitter(chunk_size: int, number_value: int) -> List[int]:

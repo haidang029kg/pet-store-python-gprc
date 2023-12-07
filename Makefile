@@ -5,10 +5,13 @@ PROTO_FILES = $(wildcard $(PROTO_DIR)/*.proto)
 PROTO_OUT_DIR = ./generated
 
 # Targets
-.PHONY: server gen-code aerich-init db-ssh-tunnel clean help
+.PHONY: server-grpc server-fastapi gen-code aerich-init db-ssh-tunnel clean help
 
-server:
+server-grpc:
 	python server_grpc.py
+
+server-fastapi:
+	uvicorn server_fastapi:app
 
 # Generate the gRPC code
 gen-code:
@@ -29,7 +32,7 @@ clean:
 # Display this help message
 help:
 	@echo "Available targets:"
-	@echo "  server       - Start the grpc server"
+	@echo "  server-grpc  - Start the grpc server"
 	@echo "  gen-code     - Generate the gRPC code"
 	@echo "  aerich-init  - Initialize Aerich for database migrations"
 	@echo "  db-ssh-tunnel - Create an SSH tunnel to the database"
