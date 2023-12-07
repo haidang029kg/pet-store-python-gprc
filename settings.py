@@ -11,6 +11,7 @@ ENABLED_TLS: bool = os.environ.get("ENABLED_TLS", "False") in [
     "true",
     "1",
 ]
+VERSION = os.environ.get("BUILD_VERSION", "1")
 LISTEN_ADDRESS = os.environ.get("LISTEN_ADDRESS", "0.0.0.0")
 GRPC_PORT = os.environ.get("GRPC_PORT", "50051")
 #

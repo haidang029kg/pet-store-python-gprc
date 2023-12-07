@@ -13,7 +13,9 @@ middleware = [
     # TODO: change to specific origins
     Middleware(CORSMiddleware, allow_origins=["*"]),
 ]
-app = FastAPI(middleware=middleware)
+app = FastAPI(
+    middleware=middleware, version=settings.VERSION, title="Pet Store"
+)
 
 
 @app.get("/health")
